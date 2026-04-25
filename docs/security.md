@@ -1,15 +1,15 @@
-# Security Policy
+# Security
 
 ## Audit Status
 
 YearRing Fund Protocol has not yet completed a third-party external audit.
 
-Current status:
-
-- Internal review: ongoing
-- Mainnet validation: in progress
-- External audit: pending
-- Public bug bounty: not yet active
+| Item | Status |
+|---|---|
+| External audit | Pending |
+| Mainnet validation | In progress |
+| Internal review | Ongoing |
+| Public bug bounty | Not yet active |
 
 ## Responsible Disclosure
 
@@ -21,32 +21,32 @@ Please do not publicly disclose vulnerabilities before the team has had a reason
 
 ## Scope
 
-Current security focus includes:
+Current security review focus:
 
-- FundVaultV01
-- StrategyManagerV01
-- AaveV3StrategyV01
-- LockRewardManagerV02
-- LockLedgerV02
-- RewardToken
-- GovernanceSignalV02
-- ProtocolTimelockV02
+- `FundVaultV01`
+- `StrategyManagerV01`
+- `AaveV3StrategyV01`
+- `LockRewardManagerV02`
+- `LockLedgerV02`
+- `RewardToken`
+- `GovernanceSignalV02`
+- `ProtocolTimelockV02`
 
 ## Known Limitations
 
-The protocol is currently in an early validation phase.
+The protocol is in an early validation phase. Users and reviewers should assume:
 
-Users and reviewers should assume:
-
-- smart contract risk exists;
-- strategy integration risk exists;
-- governance and admin configuration risk exists;
-- oracle, accounting, and liquidity risks may exist in future RWA versions;
-- external audit is still pending.
+- smart contract risk exists
+- strategy integration risk exists
+- governance and admin configuration risk exists
+- oracle, accounting, and liquidity risks may exist in future RWA versions
+- external audit is still pending
 
 ## Contact
 
-Official website: https://yearringfund.com  
-Official app: https://app.yearringfund.com  
-Official docs: https://docs.yearringfund.com  
-Security contact: security@yearringfund.com
+| | |
+|---|---|
+| Website | https://yearringfund.com |
+| App | https://app.yearringfund.com |
+| Docs | https://docs.yearringfund.com |
+| Security | security@yearringfund.com |
