@@ -1,19 +1,31 @@
-# yearring-docs
+# YearRing Fund Protocol — Documentation
 
-> YearRing Fund Protocol — Documentation & Whitepaper
-> **Live:** [docs.yearringfund.com](https://docs.yearringfund.com)
+Official documentation for YearRing Fund Protocol.
 
-Technical documentation, protocol whitepaper, integration guides, and audit reports
-for YearRing Fund Protocol.
+**Live:** https://docs.yearringfund.com
+
+---
 
 ## Contents
 
-- `/whitepaper` — Protocol whitepaper
-- `/architecture` — Contract architecture and layer diagrams
-- `/integration` — Integration guides for wallets and third-party protocols
-- `/audits` — Audit reports (when available)
-- `/changelog` — Version history and upgrade notes
+| Page | Description |
+|---|---|
+| [Overview](./docs/overview.md) | Protocol introduction and core design |
+| [Architecture](./docs/architecture.md) | Contract layers and system design |
+| [Mainnet Contracts](./docs/contracts.md) | Deployed contract addresses on Base |
+| [Risk & Audit Status](./docs/risk-and-audit.md) | Known risks and audit status |
+| [Whitepaper](./docs/whitepaper.md) | Full protocol whitepaper |
+| [Security](./docs/security.md) | Security policy and responsible disclosure |
+
+---
+
+## Official Links
+
+- Website: https://yearringfund.com
+- App: https://app.yearringfund.com
+- Docs: https://docs.yearringfund.com
+- GitHub: https://github.com/yearring-fund/YearRing-FundProtocol
 
 ## License
 
-MIT — see [LICENSE](./LICENSE)
+See [LICENSE](./LICENSE).
