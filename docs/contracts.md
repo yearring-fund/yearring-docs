@@ -40,11 +40,7 @@ All YearRing Fund Protocol contracts are deployed on Base mainnet.
 
 ## Operational Addresses
 
-| Role | Address |
-|---|---|
-| Admin | `0x087ea7F67d9282f0bdC43627b855F79789C6824C` |
-| Guardian (Emergency) | `0xC8052cF447d429f63E890385a6924464B85c5834` |
-| Treasury | `0x9d16Eb6A6143A3347f8fA5854B5AA675101Fb705` |
+Non-emergency administrative operations are intended to be routed through `ProtocolTimelockV02`. Emergency operations are separated from administrative parameter changes. For security reasons, operational signer details are not expanded in this public document.
 
 ---
 

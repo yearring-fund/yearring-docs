@@ -37,7 +37,7 @@ The protocol is organized in three layers. Each layer has a single responsibilit
 ```
 ┌─────────────────────────────────────────────────────────┐
 │  BeneficiaryModule        UserStateEngine                │  User-facing
-│  MetricsLayer             LockPoints (reserved)          │
+│  MetricsLayer                                            │
 ├─────────────────────────────────────────────────────────┤
 │  LockRewardManager        LockBenefit                    │  Commitment layer
 │  LockLedger                                              │

@@ -30,7 +30,7 @@ features:
 
 YearRing Fund Protocol is an on-chain fund and long-term capital coordination infrastructure deployed on Base.
 
-It accepts USDC deposits, issues ERC-4626 shares (`fbUSDC`), and deploys capital into auditable yield strategies. On top of the vault sits a commitment layer that allows participants to signal long-term intent through verifiable, on-chain lock positions.
+It accepts USDC deposits, issues ERC-4626 shares (`fbUSDC`), and deploys capital into conservative yield strategies with transparent, on-chain accounting. On top of the vault sits a commitment layer that allows participants to signal long-term intent through verifiable, on-chain lock positions.
 
 The protocol is not designed for short-term yield optimization. It is designed as a long-term capital container with transparent accounting, separated execution layers, and non-negotiable exit rights.
 

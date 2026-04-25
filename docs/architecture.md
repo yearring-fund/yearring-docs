@@ -5,7 +5,7 @@ The protocol is organized in three layers. Each layer has a single responsibilit
 ```
 ┌─────────────────────────────────────────────────────────┐
 │  BeneficiaryModule        UserStateEngine                │  User-facing
-│  MetricsLayer             LockPoints (reserved)          │
+│  MetricsLayer                                            │
 ├─────────────────────────────────────────────────────────┤
 │  LockRewardManager        LockBenefit                    │  Commitment layer
 │  LockLedger                                              │
@@ -103,7 +103,7 @@ Lock and unlock are ERC-20 transfers of `fbUSDC` between user wallets and the `L
 |---|---|
 | DEFAULT_ADMIN_ROLE (via 24h Timelock) | Parameter changes, mode recovery, role management |
 | EMERGENCY_ROLE | Pause and emergency operations only |
-| UPGRADER_ROLE | Strategy contract upgrades |
+| UPGRADER_ROLE | Reserved for future governance; current deployed contracts are not upgradeable by default. |
 | PROPOSER_ROLE | Create governance signal votes |
 
 EMERGENCY_ROLE is a brake pedal, not a steering wheel. It can pause deposits and trigger emergency exit, but cannot modify protocol parameters, redirect funds, or recover the system to Normal state.
