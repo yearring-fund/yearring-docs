@@ -119,7 +119,7 @@ The protocol operates in one of three system modes:
 | Mode | Deposits | Redeems | Notes |
 |---|---|---|---|
 | Normal | Open | Open | Full operation |
-| Paused | Blocked | Open | Deposits stopped; exits always available |
+| Paused | Blocked | Open | Deposits stopped; redemptions remain open |
 | EmergencyExit | Blocked | Via Exit Round | Full withdrawal through proportional claim |
 
 In EmergencyExit mode, all strategy capital is withdrawn via `emergencyExit()`. Users call `claimExitAssets(roundId)` to burn shares and receive proportional USDC.

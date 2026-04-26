@@ -10,7 +10,7 @@ It is designed for users who want transparent, rules-based, compounding-oriented
 
 Users deposit USDC into the vault and receive **fbUSDC** — ERC-4626 shares backed by the vault's assets. The vault deploys USDC into approved yield strategies, currently Aave V3 USDC supply on Base.
 
-On top of the vault sits a **commitment layer**: users can voluntarily lock their fbUSDC shares for 30 to 365 days across three tiers (Bronze, Silver, Gold). Locking earns upfront reward tokens (RWT) and a management fee rebate. Exiting early returns the full principal but requires returning all issued RWT.
+On top of the vault sits a **commitment layer**: users can voluntarily lock their fbUSDC shares for 30 to 365 days across three tiers (Bronze, Silver, Gold). Locking earns upfront reward tokens (RWT) and a management fee rebate. Early unlock requires returning the originally issued RWT and releases the locked shares according to vault accounting rules.
 
 The vault and commitment layer have **separate accounting**. Vault yield comes from strategy performance and does not depend on the reward token. The commitment layer uses RWT to coordinate long-term capital behavior — not to generate yield.
 

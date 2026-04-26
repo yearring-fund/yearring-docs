@@ -21,7 +21,7 @@ features:
   - title: Separated Strategy Layer
     details: Capital is deployed into approved external strategies via StrategyManagerV01. Currently integrated with Aave V3 USDC supply on Base.
   - title: Commitment Layer
-    details: Users can lock fbUSDC shares for 30–365 days across Bronze, Silver, and Gold tiers. Locking earns RWT and a management fee rebate. Early exit returns full principal on return of RWT.
+    details: Users can lock fbUSDC shares for 30–365 days across Bronze, Silver, and Gold tiers. Locking earns RWT and a management fee rebate. Early unlock requires returning the originally issued RWT and releases the locked shares according to vault accounting rules.
   - title: Emergency Exit
     details: The protocol supports three system modes — Normal, Paused, and EmergencyExit. Redemption is always prioritized. Emergency exit withdraws all strategy capital and allows proportional claims.
 ---

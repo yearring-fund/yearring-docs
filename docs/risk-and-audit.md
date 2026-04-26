@@ -6,7 +6,7 @@
 |---|---|
 | External audit | **Pending** |
 | Mainnet validation | **In progress** (invited whitelist only) |
-| Internal test suite (613 cases) | Passing |
+| Internal test suite (611 cases) | Passing |
 | Public bug bounty | Not yet active |
 
 **YearRing Fund Protocol has not completed a third-party external audit.**
@@ -21,7 +21,7 @@ Until an external audit is completed, users should treat all interactions as exp
 
 ### Smart Contract Risk
 
-The protocol contracts have not been formally audited by a third party. The internal test suite covers 613 cases across vault accounting, access control, emergency paths, and commitment operations. Testing does not eliminate all contract risk.
+The protocol contracts have not been formally audited by a third party. The internal test suite covers 611 cases across vault accounting, access control, emergency paths, and commitment operations. Testing does not eliminate all contract risk.
 
 ### No Guaranteed Yield
 

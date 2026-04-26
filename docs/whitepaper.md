@@ -10,7 +10,7 @@ Version 0.1 — April 2026
 
 YearRing is an on-chain fund protocol deployed on Base. It accepts USDC deposits, issues ERC-4626 shares (fbUSDC), and deploys capital into conservative yield strategies — currently Aave V3 USDC supply.
 
-On top of the vault sits a commitment layer: users can lock their shares for 30–365 days across three tiers (Bronze, Silver, Gold). Locking earns upfront reward tokens (RWT) and a management fee rebate. Early exit returns the full principal but requires returning all issued RWT. The protocol also provides a beneficiary mechanism — a designated address can inherit locked positions if the original owner becomes inactive.
+On top of the vault sits a commitment layer: users can lock their shares for 30–365 days across three tiers (Bronze, Silver, Gold). Locking earns upfront reward tokens (RWT) and a management fee rebate. Early unlock requires returning the originally issued RWT and releases the locked shares according to vault accounting rules. The protocol also provides a beneficiary mechanism — a designated address can inherit locked positions if the original owner becomes inactive.
 
 The vault and the commitment layer have separate accounting. Vault yield comes from strategy performance; it does not depend on the reward token. The commitment layer uses RWT to coordinate long-term capital behavior, not to generate yield.
 
@@ -166,7 +166,7 @@ RWT is not counted in `totalAssets()`. Its market value does not affect PPS.
 
 ### 5.4 Early Exit
 
-Early exit returns the full principal. The user must return all RWT issued for that lock position. Partial return is not accepted.
+Early unlock requires returning all RWT issued for that lock position. Partial return is not accepted. The locked shares are released according to vault accounting rules at the time of exit.
 
 ---
 
@@ -177,7 +177,7 @@ Early exit returns the full principal. The user must return all RWT issued for t
 | Mode | Deposits | Redeems | Notes |
 |---|---|---|---|
 | Normal | Open | Open | Full operation |
-| Paused | Blocked | Open | Exits always available |
+| Paused | Blocked | Open | Redemptions remain open |
 | EmergencyExit | Blocked | Via Exit Round | Proportional claim mechanism |
 
 ### 6.2 Exit Round

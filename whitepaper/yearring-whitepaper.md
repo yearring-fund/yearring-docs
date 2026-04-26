@@ -10,7 +10,7 @@ Version 0.1 — April 2026
 
 YearRing is an on-chain fund protocol deployed on Base. It accepts USDC deposits, issues ERC-4626 shares (fbUSDC), and deploys capital into conservative yield strategies — currently Aave V3 USDC supply.
 
-On top of the vault sits a commitment layer: users can lock their shares for 30–365 days across three tiers (Bronze, Silver, Gold). Locking earns upfront reward tokens (RWT) and a management fee rebate. Early exit returns the full principal but requires returning all issued RWT. The protocol also provides a beneficiary mechanism — a designated address can inherit locked positions if the original owner becomes inactive.
+On top of the vault sits a commitment layer: users can lock their shares for 30–365 days across three tiers (Bronze, Silver, Gold). Locking earns upfront reward tokens (RWT) and a management fee rebate. Early unlock requires returning the originally issued RWT and releases the locked shares according to vault accounting rules. The protocol also provides a beneficiary mechanism — a designated address can inherit locked positions if the original owner becomes inactive.
 
 The vault and the commitment layer have separate accounting. Vault yield comes from strategy performance; it does not depend on the reward token. The commitment layer uses RWT to coordinate long-term capital behavior, not to generate yield.
 
@@ -390,7 +390,7 @@ Rebate claims are fbUSDC transfers from treasury to user. The shares already exi
 
 ## 10. Risk Disclosure
 
-**Smart contract risk**: The protocol contracts have not been formally audited by a third party. The test suite covers 613 cases across vault accounting, access control, emergency paths, and commitment operations. Testing does not eliminate all contract risk.
+**Smart contract risk**: The protocol contracts have not been formally audited by a third party. The test suite covers 611 cases across vault accounting, access control, emergency paths, and commitment operations. Testing does not eliminate all contract risk.
 
 **Strategy risk**: Vault capital deployed to Aave V3 is subject to Aave protocol risk (smart contract bugs, governance actions, market conditions). If Aave's aUSDC balance decreases, PPS decreases proportionally.
 
