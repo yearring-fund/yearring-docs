@@ -18,7 +18,7 @@ export default defineConfig({
       { text: 'Architecture', link: '/architecture' },
       { text: 'Contracts', link: '/contracts' },
       { text: 'Risk & Audit', link: '/risk-and-audit' },
-      { text: 'Whitepaper', link: '/whitepaper' },
+      { text: 'Protocol Overview', link: '/whitepaper' },
       { text: 'App', link: 'https://app.yearringfund.com', target: '_blank' },
     ],
 
@@ -28,7 +28,7 @@ export default defineConfig({
         items: [
           { text: 'Overview', link: '/' },
           { text: 'Architecture', link: '/architecture' },
-          { text: 'Whitepaper', link: '/whitepaper' },
+          { text: 'Protocol Overview', link: '/whitepaper' },
         ],
       },
       {

@@ -4,14 +4,14 @@ The protocol is organized in three layers. Each layer has a single responsibilit
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│  BeneficiaryModule        UserStateEngine                │  User-facing
-│  MetricsLayer                                            │
+│  PortfolioLensV21         EligibilityModuleV21           │  Read / Aggregation
 ├─────────────────────────────────────────────────────────┤
-│  LockRewardManager        LockBenefit                    │  Commitment layer
-│  LockLedger                                              │
+│  LockManagerV21           PointsLedgerV01                │  Commitment Layer
+│  RebateManagerV21                                        │
 ├─────────────────────────────────────────────────────────┤
-│  FundVault (fbUSDC)       StrategyManager                │  Capital layer
-│                                                          │
+│  YearRingCoreVaultV21     CoreStrategyManagerV21         │  Capital Layer
+│  AccessStrategyManagerV21 AaveUSDCStrategyV21            │
+│  TreasuryV21                                             │
 └─────────────────────────────────────────────────────────┘
 ```
 
@@ -19,109 +19,94 @@ The protocol is organized in three layers. Each layer has a single responsibilit
 
 ## Layer 1 — Capital Layer
 
-The vault layer handles all user-facing fund accounting and share ownership.
+Responsible for all user-facing fund accounting and share ownership.
+
+**Contracts:** `YearRingCoreVaultV21`, `CoreStrategyManagerV21`, `AccessStrategyManagerV21`, `AaveUSDCStrategyV21`, `TreasuryV21`
 
 **Responsibilities:**
-- user deposit and redeem flow
-- ERC-4626 share accounting (`fbUSDC`)
-- reserve management
-- allowlist / access control
-- emergency mode and exit round logic
-- management fee accounting
-- NAV and share-value calculation
+- ERC-4626 share accounting (`yrUSDC`)
+- User deposit and redeem flow
+- On-chain reserve band enforcement: MIN 5% / TARGET 10% / MAX 15% — auto-rebalance on every deposit and withdrawal
+- Allowlist / access control (`allowlistEnabled` + `allowlist(address)`)
+- System mode: Normal (0) / Paused (1) / Emergency Mode (2)
+- Management fee accrual (50 bps/year, accrued in CoreStrategyManagerV21 as PPS dilution)
+- NAV and PPS derived from `convertToAssets()` — never set directly
 
-**Share price (PPS)** is derived, never set:
+**Price Per Share** is derived, not set:
 
 ```
-PPS = totalAssets() / totalSupply()
+PPS = convertToAssets(1e18)
+    → returns USDC amount (6 decimals) for 1 full yrUSDC share
 ```
-
-There is no `setTotalAssets()`, `setPps()`, or `adminMintShares()`. These interfaces are prohibited by design.
 
 **totalAssets** is computed bottom-up:
 
 ```
 totalAssets()
   = vault idle USDC
-  + strategyManager.totalManagedAssets()
+  + coreStrategyManager.totalManagedAssets()
 
 totalManagedAssets()
   = strategyManager idle USDC
-  + strategy.totalUnderlying()
+  + strategy.totalUnderlying()    // aToken balance in Aave V3
 ```
 
-**Main contracts:** `FundVaultV01`
-
 ---
 
-## Layer 2 — Strategy Execution Layer
+## Layer 2 — Commitment Layer
 
-The strategy layer deploys vault capital into approved external protocols.
+Coordinates long-term capital behavior without modifying vault accounting.
 
-**Responsibilities:**
-- receiving capital from the vault
-- investing into approved external protocols
-- divesting and returning assets to the vault
-- enforcing strategy caps and execution limits
-- isolating strategy execution risk from the vault layer
-
-**Deployment constraints:**
-- Hard cap: max 70% of `totalAssets` can be deployed at any time (on-chain constant, not configurable by admin)
-- Reserve ratio: admin-set target that must be satisfied before deployment is allowed
-
-**Main contracts:** `StrategyManagerV01`, `AaveV3StrategyV01`
-
----
-
-## Layer 3 — Commitment / Reward Layer
-
-The commitment layer coordinates long-term capital behavior without modifying vault accounting.
+**Contracts:** `LockManagerV21`, `PointsLedgerV01`, `RebateManagerV21`
 
 **Responsibilities:**
-- lock-based incentives (30–365 days, three tiers)
-- reward token (RWT) issuance and return on early exit
-- management fee rebate calculation and settlement
-- beneficiary designation and claim logic
+- Lock-based incentives (30–365 days, three tiers: Bronze / Silver / Gold)
+- Non-transferable internal Points issued at lock time (`PointsLedgerV01`)
+- Points are credited/debited via `PointsCredited` / `PointsDebited` events — not ERC-20 transfers
+- Management fee rebate in USDC (linear accrual, claimed via `RebateManagerV21`)
 
 **Lock tiers:**
 
-| Tier | Duration | Fee Discount |
-|---|---|---|
-| Bronze | 30–89 days | 20% |
-| Silver | 90–179 days | 40% |
-| Gold | 180–365 days | 60% |
+| Tier | Duration |
+|---|---|
+| Bronze | 30–89 days |
+| Silver | 90–179 days |
+| Gold | 180–365+ days |
 
-Lock and unlock are ERC-20 transfers of `fbUSDC` between user wallets and the `LockLedger`. No vault accounting is affected. Locked shares continue to appreciate via PPS during the lock period.
+Lock positions are recorded in `LockManagerV21`. Locked `yrUSDC` continues to appreciate via PPS during the lock period. Points are non-transferable and have no guaranteed market value.
 
-**Main contracts:** `RewardToken`, `LockRewardManagerV02`, `LockLedgerV02`
+---
+
+## Layer 3 — Read / Aggregation Layer
+
+Read-only aggregation. No state modification.
+
+**Contracts:** `PortfolioLensV21`, `EligibilityModuleV21`
+
+**Responsibilities:**
+- `PortfolioLensV21`: aggregated view of vault state, lock positions, pending rewards, and manager info
+- `EligibilityModuleV21`: checks lock eligibility for AccessStrategyManagerV21 entry
 
 ---
 
 ## Governance and Access Control
 
-| Role | Scope |
+| Role | Scope (V2.1 Beta) |
 |---|---|
-| DEFAULT_ADMIN_ROLE (via 24h Timelock) | Parameter changes, mode recovery, role management |
-| EMERGENCY_ROLE | Pause and emergency operations only |
-| UPGRADER_ROLE | Reserved for future governance; current deployed contracts are not upgradeable by default. |
-| PROPOSER_ROLE | Create governance signal votes |
+| DEFAULT_ADMIN_ROLE | All admin, keeper, and emergency roles held by monitored operator address during beta |
+| EMERGENCY_ROLE | Activate Emergency Mode (systemMode=2) — does not add operator withdrawal path |
+| Timelock + multisig | Planned hardening step before broader public access — not yet in V2.1 beta |
 
-EMERGENCY_ROLE is a brake pedal, not a steering wheel. It can pause deposits and trigger emergency exit, but cannot modify protocol parameters, redirect funds, or recover the system to Normal state.
-
-**Main contracts:** `GovernanceSignalV02`, `ProtocolTimelockV02`
+Emergency controls are limited to pause and Emergency Mode. They do not add a direct operator withdrawal path for user principal.
 
 ---
 
-## Emergency Exit
+## Emergency Mode
 
-The protocol operates in one of three system modes:
-
-| Mode | Deposits | Redeems | Notes |
+| Mode | Deposits | Withdrawals | Notes |
 |---|---|---|---|
-| Normal | Open | Open | Full operation |
-| Paused | Blocked | Open | Deposits stopped; redemptions remain open |
-| EmergencyExit | Blocked | Via Exit Round | Full withdrawal through proportional claim |
+| Normal (0) | Open | Open | Full operation |
+| Paused (1) | Blocked | Open | Deposits stopped; redemptions remain open |
+| Emergency Mode (2) | Blocked | Blocked | Deposits and withdrawals frozen pending resolution |
 
-In EmergencyExit mode, all strategy capital is withdrawn via `emergencyExit()`. Users call `claimExitAssets(roundId)` to burn shares and receive proportional USDC.
-
-Redemption access is always prioritized. No state transition blocks a user's ability to recover their assets.
+In Emergency Mode (`systemMode=2`), deposits and withdrawals are frozen while accounting, liquidity, or strategy risk is reviewed. Emergency controls are defined in the V2.1 contracts and do not add a direct operator withdrawal path for user principal.

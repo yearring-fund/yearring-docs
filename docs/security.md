@@ -2,12 +2,12 @@
 
 ## Audit Status
 
-YearRing Fund Protocol has not yet completed a third-party external audit.
+YearRing Fund Protocol V2.1 Beta has not yet completed a third-party external audit. An external audit is in preparation.
 
 | Item | Status |
 |---|---|
-| External audit | Pending |
-| Mainnet validation | In progress |
+| External audit | Pending — in preparation |
+| Mainnet validation | In progress (invited allowlist) |
 | Internal review | Ongoing |
 | Public bug bounty | Not yet active |
 
@@ -21,26 +21,27 @@ Please do not publicly disclose vulnerabilities before the team has had a reason
 
 ## Scope
 
-Current security review focus:
+Current security review focus (V2.1 Beta contracts):
 
-- `FundVaultV01`
-- `StrategyManagerV01`
-- `AaveV3StrategyV01`
-- `LockRewardManagerV02`
-- `LockLedgerV02`
-- `RewardToken`
-- `GovernanceSignalV02`
-- `ProtocolTimelockV02`
+- `YearRingCoreVaultV21`
+- `CoreStrategyManagerV21`
+- `AccessStrategyManagerV21`
+- `AaveUSDCStrategyV21`
+- `LockManagerV21`
+- `PointsLedgerV01`
+- `RebateManagerV21`
+- `TreasuryV21`
+- `PortfolioLensV21`
+- `EligibilityModuleV21`
 
 ## Known Limitations
 
-The protocol is in an early validation phase. Users and reviewers should assume:
+The protocol is in a controlled beta validation phase. Users and reviewers should assume:
 
-- smart contract risk exists
-- strategy integration risk exists
-- governance and admin configuration risk exists
-- oracle, accounting, and liquidity risks may exist in future RWA versions
-- external audit is still pending
+- Smart contract risk exists — external audit is still pending
+- Strategy integration risk exists (Aave V3 USDC supply on Base)
+- Admin role concentration risk exists during beta (Timelock + multisig planned but not deployed)
+- Liquidity risk may exist during large or simultaneous redemption events
 
 ## Contact
 

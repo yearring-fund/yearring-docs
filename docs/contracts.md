@@ -1,51 +1,66 @@
-# Mainnet Contracts
+# Mainnet Contracts — V2.1 Beta
 
-All YearRing Fund Protocol contracts are deployed on Base mainnet.
-
-## Network
-
-| Item | Value |
-|---|---|
-| Network | Base Mainnet |
-| Chain ID | 8453 |
-| Block Explorer | [basescan.org](https://basescan.org) |
-| Settlement Asset | USDC (`0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913`) |
+All contracts are deployed on **Base Mainnet** (Chain ID: 8453).
 
 ---
 
-## Core Contracts
+## Capital Layer
 
 | Contract | Address |
 |---|---|
-| FundVaultV01 | [`0x9dD61ee543a9C51aBe7B26A89687C9aEeea98a54`](https://basescan.org/address/0x9dD61ee543a9C51aBe7B26A89687C9aEeea98a54) |
-| StrategyManagerV01 | [`0xa44d3b9b0ECD6fFa4bD646957468c0B5Bfa64A54`](https://basescan.org/address/0xa44d3b9b0ECD6fFa4bD646957468c0B5Bfa64A54) |
-| AaveV3StrategyV01 | [`0x621CC4189946128eF2d584F69bb994C84FcA612D`](https://basescan.org/address/0x621CC4189946128eF2d584F69bb994C84FcA612D) |
-| RewardToken / RWT | [`0xeAb54e7cFbE5d35ea5203854B44C8516201534A9`](https://basescan.org/address/0xeAb54e7cFbE5d35ea5203854B44C8516201534A9) |
-| LockRewardManagerV02 | [`0xb29DeFCF75f71bc4DaFaA353cE294C284F5e07cB`](https://basescan.org/address/0xb29DeFCF75f71bc4DaFaA353cE294C284F5e07cB) |
-| LockLedgerV02 | [`0x2D95517Cc375ab2dc6433fd44A8706462A418a89`](https://basescan.org/address/0x2D95517Cc375ab2dc6433fd44A8706462A418a89) |
-| GovernanceSignalV02 | [`0x9BE5636943d7BfF57ACA6047Cf945FD770CcC7d0`](https://basescan.org/address/0x9BE5636943d7BfF57ACA6047Cf945FD770CcC7d0) |
-| ProtocolTimelockV02 | [`0x054Cb2c32D6062B291420584dE2e5952C372cDD6`](https://basescan.org/address/0x054Cb2c32D6062B291420584dE2e5952C372cDD6) |
-| ClaimLedger | [`0x5CF9b8EC75314115EDDE5Dd332C193995Dd55234`](https://basescan.org/address/0x5CF9b8EC75314115EDDE5Dd332C193995Dd55234) |
+| YearRingCoreVaultV21 (yrUSDC) | [`0x53e45AcB32aCD80F3d215a007fD8FE87390746F8`](https://basescan.org/address/0x53e45AcB32aCD80F3d215a007fD8FE87390746F8) |
+| CoreStrategyManagerV21 | [`0xc615c0c37524e9997622337cC973aC24C40e0548`](https://basescan.org/address/0xc615c0c37524e9997622337cC973aC24C40e0548) |
+| AccessStrategyManagerV21 | [`0x49f2FF1CF3BcD216f4958485407a038535f1Ebb0`](https://basescan.org/address/0x49f2FF1CF3BcD216f4958485407a038535f1Ebb0) |
+| AaveUSDCStrategyV21 (CoreSM) | [`0x58F265139E3693651B4E30961a1e535b413BBa2C`](https://basescan.org/address/0x58F265139E3693651B4E30961a1e535b413BBa2C) |
+| AaveUSDCStrategyV21 (ASM) | [`0xc61D5966F2802aff6c6377C21bBdE923Daf879e0`](https://basescan.org/address/0xc61D5966F2802aff6c6377C21bBdE923Daf879e0) |
+| TreasuryV21 | [`0x413f038278A97FC2AE413380Ba0ef195F4e8a0b2`](https://basescan.org/address/0x413f038278A97FC2AE413380Ba0ef195F4e8a0b2) |
+
+## Commitment Layer
+
+| Contract | Address |
+|---|---|
+| LockManagerV21 | [`0xCDc679865b5161C7b7cf75584551F5B57828d59F`](https://basescan.org/address/0xCDc679865b5161C7b7cf75584551F5B57828d59F) |
+| PointsLedgerV01 | [`0xb9c51ff318352c21f2fF5D378D31eFE0c7020dFe`](https://basescan.org/address/0xb9c51ff318352c21f2fF5D378D31eFE0c7020dFe) |
+| RebateManagerV21 | [`0x3B1F6956D5212bCA3Af223DD63AE31420233aDAD`](https://basescan.org/address/0x3B1F6956D5212bCA3Af223DD63AE31420233aDAD) |
+
+## Read / Aggregation Layer
+
+| Contract | Address |
+|---|---|
+| PortfolioLensV21 | [`0xeb6C6b8FaE3c10271ea94dc5C071FE8147E01a0a`](https://basescan.org/address/0xeb6C6b8FaE3c10271ea94dc5C071FE8147E01a0a) |
+| EligibilityModuleV21 | [`0x7ee0ED49A008e6feA8d196492699a87f878a2022`](https://basescan.org/address/0x7ee0ED49A008e6feA8d196492699a87f878a2022) |
 
 ---
 
-## External Integrations
+## Key Token
 
-| Protocol | Purpose | Address |
+| Token | Address | Notes |
 |---|---|---|
-| Aave V3 on Base | Active yield strategy | [`0xA238Dd80C259a72e81d7e4664a9801593F98d1c5`](https://basescan.org/address/0xA238Dd80C259a72e81d7e4664a9801593F98d1c5) |
-| USDC on Base | Settlement asset | [`0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913`](https://basescan.org/address/0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913) |
-
----
-
-## Operational Addresses
-
-Non-emergency administrative operations are intended to be routed through `ProtocolTimelockV02`. Emergency operations are separated from administrative parameter changes. For security reasons, operational signer details are not expanded in this public document.
+| USDC (Base) | [`0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913`](https://basescan.org/address/0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913) | Underlying asset |
+| yrUSDC | Same as YearRingCoreVaultV21 | ERC-4626 share token |
 
 ---
 
 ## Notes
 
-- These addresses reflect the current mainnet validation deployment.
-- External audit is pending. See [Risk & Audit Status](/risk-and-audit).
-- Contract source code reference: [GitHub](https://github.com/yearring-fund/YearRing-FundProtocol)
+- **yrUSDC** is the ERC-4626 share token minted by `YearRingCoreVaultV21`. Price Per Share is derived from `convertToAssets(1e18)` — not set by admin.
+- **PointsLedgerV01** records non-transferable internal Points. Points are not ERC-20 tokens and have no guaranteed market value.
+- **AccessStrategyManagerV21** is the entry point for lock-eligible users; `CoreStrategyManagerV21` handles general capital deployment.
+- Two `AaveUSDCStrategyV21` instances exist: one connected to CoreStrategyManagerV21 and one to AccessStrategyManagerV21.
+
+---
+
+## Deprecated (V01 / V02)
+
+The following contracts are deprecated. They remain on-chain but are no longer actively used.
+
+| Contract | Address | Status |
+|---|---|---|
+| FundVaultV01 | [`0x9dD61ee543a9C51aBe7B26A89687C9aEeea98a54`](https://basescan.org/address/0x9dD61ee543a9C51aBe7B26A89687C9aEeea98a54) | Deprecated |
+| StrategyManagerV01 | [`0xa44d3b9b0ECD6fFa4bD646957468c0B5Bfa64A54`](https://basescan.org/address/0xa44d3b9b0ECD6fFa4bD646957468c0B5Bfa64A54) | Deprecated |
+| AaveV3StrategyV01 | [`0x621CC4189946128eF2d584F69bb994C84FcA612D`](https://basescan.org/address/0x621CC4189946128eF2d584F69bb994C84FcA612D) | Deprecated |
+| LockRewardManagerV02 | [`0x129aEce0C7659575Ae7aB4e78bfe4ca8946B962a`](https://basescan.org/address/0x129aEce0C7659575Ae7aB4e78bfe4ca8946B962a) | Deprecated |
+| LockLedgerV02 | [`0x2FC1d315c67AE3Df2a062f7130d58FaA6c0ce9EF`](https://basescan.org/address/0x2FC1d315c67AE3Df2a062f7130d58FaA6c0ce9EF) | Deprecated |
+| ProtocolTimelockV02 | [`0x054Cb2c32D6062B291420584dE2e5952C372cDD6`](https://basescan.org/address/0x054Cb2c32D6062B291420584dE2e5952C372cDD6) | Deprecated |
+
+[← Back to Overview](/)
